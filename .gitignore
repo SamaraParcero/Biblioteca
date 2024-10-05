@@ -1,0 +1,15 @@
+
+venv/
+
+
+*.pyc
+__pycache__/
+
+
+bib.sqlite3
+
+
+settings.py
+
+
+
