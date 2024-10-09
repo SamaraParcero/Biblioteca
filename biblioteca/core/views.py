@@ -15,7 +15,7 @@ class LivroList(generics.ListCreateAPIView):
     filterset_class = LivroFilter
     name = "livro-list"
     search_fields = ("^titulo", "^categoria__nome",)
-    ordering_fields = ['titulo', 'autor__nome', 'categoria__nome', 'publicado_em']
+    ordering_fields = ['titulo', 'autor', 'categoria', 'publicado_em']
 
 class LivroDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Livro.objects.all()
