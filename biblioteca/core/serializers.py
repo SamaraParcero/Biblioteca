@@ -3,6 +3,19 @@ from .models import Categoria, Autor, Livro, Colecao
 from django.contrib.auth.models import User 
 
 
+class UserColecaoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Colecao
+        fields = (
+            'url',
+            'name')
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    colecoes = UserColecaoSerializer(
+        many=True,
+        read_only=True)
+
+
 class CategoriaSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     nome = serializers.CharField(max_length=100)
@@ -49,20 +62,11 @@ class LivroSerializer(serializers.Serializer):
         instance.save()
         return instance
     
-class ColecaoSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    nome = serializers.CharField(max_length=100)
-    descricao = serializers.CharField(required=False)
+class ColecaoSerializer(serializers.HyperlinkedModelSerializer):
+    colecionador = serializers.ReadOnlyField(source="colecionador.username")
     livros = serializers.PrimaryKeyRelatedField(many=True, queryset=Livro.objects.all())
-    colecionador = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    
-    def create(sef, validated_data):
-        return Colecao.objects.create(**validated_data)
-    
-    def update(self, instance, validated_data):
-        instance.nome = validated_data.get("nome", instance.titulo)
-        instance.descricao = validated_data.get("descricao", instance.descricao)
-        instance.livros = validated_data.get("livros", instance.livros)
-        instance.colecionador = validated_data.get("colecionador", instance.colecionador)
-        instance.save()
-        return instance
+
+    class Meta:
+        model = Colecao
+        fields = ["id", "nome", "descricao", "livros", "colecionador"]
+

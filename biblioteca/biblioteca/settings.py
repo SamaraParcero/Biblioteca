@@ -36,8 +36,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'django_filters',
-
-    # Adicione seus aplicativos aqui
+    'rest_framework.authtoken',
+    'rest_framework_api_key',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -72,12 +73,28 @@ TEMPLATES = [
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 5,
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.OrderingFilter',
         'rest_framework.filters.SearchFilter',
+    ],
+     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated', 
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
-    ]
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Biblioteca API",
+    "DESCRIPTION": "Documentação da Biblioteca",
+    "VERSION": "1.0.0",
+    "SERVE INCLUDE SCHEMA": False,
+    # OTHER SETTINGS
 }
 
 WSGI_APPLICATION = 'biblioteca.wsgi.application'

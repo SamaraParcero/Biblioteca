@@ -14,6 +14,8 @@ from rest_framework import permissions
 from core import custom_permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import AllowAny
+from drf_spectacular.views import SpectacularAPIView
 
 class LivroList(generics.ListCreateAPIView):
     queryset = Livro.objects.all()
@@ -22,6 +24,7 @@ class LivroList(generics.ListCreateAPIView):
     name = "livro-list"
     search_fields = ("^titulo", "^categoria__nome",)
     ordering_fields = ['titulo', 'autor', 'categoria', 'publicado_em']
+    
 
 class LivroDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Livro.objects.all()
@@ -59,8 +62,7 @@ class ColecaoListCreate(generics.ListCreateAPIView):
     name = "colecao-list"
     authentication_classes = (TokenAuthentication,)
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        custom_permissions.IsCurrentUserOwnerOrReadOnly,
+        permissions.IsAuthenticated,
     )
     ordering_fields = ['nome']
 
@@ -73,10 +75,7 @@ class ColecaoDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ColecaoSerializer
     name = "colecao-detail"
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        custom_permissions.IsCurrentUserOwnerOrReadOnly,
-    )
+    permission_classes = (IsAuthenticated)
     
 
 
