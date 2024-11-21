@@ -45,8 +45,8 @@ class ColecaoListCreate(generics.ListCreateAPIView):
     queryset = Colecao.objects.all()
     serializer_class = ColecaoSerializer
     name = "colecao-list"
-    authentication_classes = [TokenAuthentication]  # Lista de classes
-    permission_classes = [permissions.IsAuthenticated]  # Lista de permissões
+    authentication_classes = [TokenAuthentication]  
+    permission_classes = [permissions.IsAuthenticated]  
     ordering_fields = ['nome']
 
     def perform_create(self, serializer):
@@ -56,7 +56,7 @@ class ColecaoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Colecao.objects.all()
     serializer_class = ColecaoSerializer
     name = "colecao-detail"
-    authentication_classes = [TokenAuthentication]  # Lista de classes
+    authentication_classes = [TokenAuthentication] 
     permission_classes = [permissions.IsAuthenticated]
 
 
