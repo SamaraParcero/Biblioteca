@@ -1,15 +1,20 @@
-
-venv/
-
-
-*.pyc
+# Byte-compiled
 __pycache__/
+*.py[cod]
+*$py.class
+# virtualenv
+meuambiente/
+venv/
+.venv/
+# Django:
+*.log
+*.pot
+db.sqlite3
+media/
+# IDEs
+.idea/
+.vscode/
 
-
-bib.sqlite3
-
-
-settings.py
 
 
 
