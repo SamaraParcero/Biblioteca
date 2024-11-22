@@ -12,6 +12,7 @@ venv/
 *.log
 *.pot
 db.sqlite3
+bib.sqlite3
 media/
 
 # IDEs
