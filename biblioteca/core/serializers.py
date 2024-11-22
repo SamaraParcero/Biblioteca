@@ -63,7 +63,7 @@ class LivroSerializer(serializers.Serializer):
         return instance
     
 class ColecaoSerializer(serializers.HyperlinkedModelSerializer):
-    colecionador = serializers.ReadOnlyField(source="colecionador.username")
+    colecionador = serializers.PrimaryKeyRelatedField(read_only=True)
     livros = serializers.PrimaryKeyRelatedField(many=True, queryset=Livro.objects.all())
 
     class Meta:

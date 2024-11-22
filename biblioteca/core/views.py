@@ -1,4 +1,5 @@
 from rest_framework import generics, permissions
+from .custom_permissions import IsColecionador
 from rest_framework.authentication import TokenAuthentication
 from .models import Colecao, Livro, Categoria, Autor
 from .serializers import ColecaoSerializer, LivroSerializer, CategoriaSerializer, AutorSerializer
@@ -57,7 +58,7 @@ class ColecaoDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ColecaoSerializer
     name = "colecao-detail"
     authentication_classes = [TokenAuthentication] 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsColecionador]
 
 
 

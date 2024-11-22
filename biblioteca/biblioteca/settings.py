@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'core',
     'django_filters',
     'rest_framework.authtoken',
-    'rest_framework_api_key',
     'drf_spectacular',
 ]
 
